@@ -113,7 +113,10 @@ public:
       }
     }
     if (host != NULL && ns == NULL) showHelp = true;
-    if (showHelp) fprintf(stderr, help, argv[0]);
+    if (showHelp){
+	 fprintf(stderr, help, argv[0]);
+	 exit(0);
+    }
   }
 };
 
@@ -339,8 +342,8 @@ extern "C" void* ThreadStats(void*) {
   } while(1);
 }
 
-static const string mainnet_seeds[] = {"vps.bitmark.co", "bitmark.co", ""};
-static const string testnet_seeds[] = {"bitmark.co", ""};
+static const string mainnet_seeds[] = {"seed.bitmark.co", "semo.bitmark.co", "xinachtli.bitmark.mx", "irugbin.zmark.org", "biji.bitmark.io", ""};
+static const string testnet_seeds[] = {"ts0.bitmark.co", "ts1.bitmark.io", "ts2.bitmark.mx", ""};
 static const string *seeds = mainnet_seeds;
 
 extern "C" void* ThreadSeeder(void*) {
