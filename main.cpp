@@ -408,7 +408,7 @@ extern "C" void* ThreadStats(void*) {
 //    These names represent sub-domain zones, which must be name-served by delegated name servers.
 // static const string mainnet_seeds[] = {"fertility.bitmark.guru", "fertilidad.bitmark.mx", "xara.zmark.org", "biji.bitmark.one", ""};
 static const string mainnet_seeds[] =  {"da.bitmark.guru",
-					"btmk.bitmark.guru,
+					"btmk.bitmark.guru",
 					"biji.bitmark.one", 
 					"shido.bitmark.one", 
 					"da.bitmark.mx", 
