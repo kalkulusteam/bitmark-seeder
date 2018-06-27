@@ -13,7 +13,7 @@
 #define MIN_RETRY 1000
 
 // Protocol Version 
-#define REQUIRE_VERSION 70003
+#define REQUIRE_VERSION 70002
 /*   	"version": 150000,		//Bitcoin
   	"protocolversion": 70015,
   	"walletversion": 60000,
