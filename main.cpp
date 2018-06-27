@@ -153,7 +153,10 @@ public:
         filter_whitelist.insert(13);
     }
     if (host != NULL && ns == NULL) showHelp = true;
-    if (showHelp) fprintf(stderr, help, argv[0]);
+    if (showHelp){
+	 fprintf(stderr, help, argv[0]);
+	 exit(0);
+    }
   }
 };
 
@@ -397,6 +400,7 @@ extern "C" void* ThreadStats(void*) {
   return nullptr;
 }
 
+
 // Bitcoin Examples
 //static const string mainnet_seeds[] = {"dnsseed.bluematt.me", "bitseed.xf2.org", "dnsseed.bitcoin.dashjr.org", "seed.bitcoin.sipa.be", ""};
 
@@ -433,6 +437,11 @@ extern "C" void* ThreadSeeder(void*) {
   //if (!fTestNet){
   //  db.Add(CService("kjy2eqzk4zwi5zd3.onion", 9265), true);
   //}
+
+//static const string mainnet_seeds[] = {"seed.bitmark.co", "semo.bitmark.co", "biji.bitmark.io", "seed.bitmark.mx", "xinachtli.bitmark.mx", "irugbin.zmark.org",  ""};
+//static const string testnet_seeds[] = {"ts0.bitmark.co", "ts1.bitmark.io", "ts2.bitmark.mx", ""};
+//static const string *seeds = mainnet_seeds;
+
   do {
     for (int i=0; seeds[i] != ""; i++) {
       vector<CNetAddr> ips;

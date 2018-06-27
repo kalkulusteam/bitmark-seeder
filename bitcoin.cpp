@@ -144,7 +144,9 @@ class CNode {
       int64 now = time(NULL);
       vector<CAddress>::iterator it = vAddrNew.begin();
       if (vAddrNew.size() > 1) {
-        if (doneAfter == 0 || doneAfter > now + 1) doneAfter = now + 1;
+
+      	if (doneAfter == 0 || doneAfter > now + 1) doneAfter = now + 1;
+
       }
       while (it != vAddrNew.end()) {
         CAddress &addr = *it;
@@ -159,7 +161,7 @@ class CNode {
       }
       return false;
     }
-    
+
     return false;
   }
   

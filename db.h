@@ -39,11 +39,11 @@
 
 // Bitcoin: If testnet, require 10,000 blocks : 11381 on testnet4 as of Nov26'17, otherwise 360,000
 
-// Bitmark: If testnet, require 1000 blocks  otherwise 465,639 (as of 1530104867: Wed Jun 27 13:07:47 UTC 2018)
+// Bitmark: If testnet, require 0 blocks  otherwise 465,639 (as of 1530104867: Wed Jun 27 13:07:47 UTC 2018)
 // Bitmark block 465639 hash: 3a7faa44a2898f3d9be0de967904640e23026fd9fa0cee4ae89c20c7030bfdd5
 static inline int GetRequireHeight(const bool testnet = fTestNet)
 {
-    return testnet ? 1000 : 465639;
+    return testnet ? 0 : 465639;
 }
 
 std::string static inline ToString(const CService &ip) {
