@@ -7,12 +7,20 @@ of reliable nodes via a built-in DNS server.
 Features:
 * regularly revisits known nodes to check their availability
 * bans nodes after enough failures, or bad behaviour
-* accepts nodes down to v0.3.19 to request new IP addresses from,
-  but only reports good post-v0.3.24 nodes.
+* accepts nodes down to v0.9.5 to request new IP addresses from,
+  but only reports good post-v0.9.7 nodes.
 * keeps statistics over (exponential) windows of 2 hours, 8 hours,
   1 day and 1 week, to base decisions on.
 * very low memory (a few tens of megabytes) and cpu requirements.
 * crawlers run in parallel (by default 24 threads simultaneously).
+
+	This seeder is based on the bitcoin seeder.
+	Many thanks, Peter Wuille !   
+
+REQUIREMENTS
+------------
+
+$ sudo apt-get install build-essential libboost-all-dev libssl-dev
 
 USAGE
 -----
@@ -31,7 +39,17 @@ On the system vps.example.com, you can now run dnsseed:
 ./dnsseed -h dnsseed.example.com -n vps.example.com
 
 If you want the DNS server to report SOA records, please provide an
-e-mailadres (with the @ part replaced by .) using -m.
+e-mail address (with the @ part replaced by .) using -m.
+
+COMPILING
+---------
+Compiling will require boost and ssl.  On debian systems, these are provided
+by `libboost-dev` and `libssl-dev` respectively.
+
+$ make
+
+This will produce the `dnsseed` binary.
+
 
 RUNNING AS NON-ROOT
 -------------------
