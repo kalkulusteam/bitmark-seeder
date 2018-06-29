@@ -460,6 +460,7 @@ int main(int argc, char **argv) {
   setbuf(stdout, NULL);
   CDnsSeedOpts opts;
   opts.ParseCommandLine(argc, argv);
+  printf("Bitmark (MARKS) DNS Seeder\n");
   printf("Supporting whitelisted filters: ");
   for (std::set<uint64_t>::const_iterator it = opts.filter_whitelist.begin(); it != opts.filter_whitelist.end(); it++) {
       if (it != opts.filter_whitelist.begin()) {
