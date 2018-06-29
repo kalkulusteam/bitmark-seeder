@@ -136,7 +136,8 @@ public:
     if (blocks && blocks < GetRequireHeight()) return false;
 // Hack: only return 0.9.7.0 or 0.9.7.1 nodes; no 0.9.5 nor 0.9.4 nor 0.9.2
     if (clientSubVersion.find(5) != std::string::npos ) {
-	        printf("Rejecting old subversion.\n");
+		// Audit Trail of decisions, logging facility ....
+	        // printf("Rejecting old subversion.\n");
 		return false;
 	};
     if (clientSubVersion.find(4) != std::string::npos ) return false;
