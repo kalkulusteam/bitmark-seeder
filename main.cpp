@@ -14,6 +14,10 @@
 
 using namespace std;
 
+// [Major].[Minor].[Patch].[Build].[letter]
+// [0].[1].[1].[8].[a]
+const char* dnsseeder_version = "0.1.1.8.b\0x0";
+
 bool fTestNet = false;
 
 class CDnsSeedOpts {
@@ -407,7 +411,7 @@ extern "C" void* ThreadStats(void*) {
 // Bitmark (MARKS) (BTM)  
 //    These names represent sub-domain zones, which must be name-served by delegated name servers.
 // static const string mainnet_seeds[] = {"fertility.bitmark.guru", "fertilidad.bitmark.mx", "xara.zmark.org", "biji.bitmark.one", ""};
-static const string mainnet_seeds[] =  {"da.bitmark.guru",
+/*static const string mainnet_seeds[] =  {"da.bitmark.guru",
 					"btmk.bitmark.guru",
 					"biji.bitmark.one", 
 					"shido.bitmark.one", 
@@ -416,6 +420,17 @@ static const string mainnet_seeds[] =  {"da.bitmark.guru",
 					"seeder.dbkeys.net",
 					"fertilidad.bitmark.mx", 
 					""};
+
+*/
+
+//  I now believe these should be regular P2P coin nodes which serve as "fixed seed nodes", 
+static const string mainnet_seeds[] =  {"seed.bitmark.co",
+					"seed.bitmark.mx",
+					"ge.bitmark.io", 
+					"tx.bitmark.io",
+					"uk.bitmark.one", 
+					""};
+
 
 // Bitcoin Examples
 //static const string testnet_seeds[] = {"testnet-seed.alexykot.me",
@@ -460,7 +475,7 @@ int main(int argc, char **argv) {
   setbuf(stdout, NULL);
   CDnsSeedOpts opts;
   opts.ParseCommandLine(argc, argv);
-  printf("Bitmark (MARKS) DNS Seeder\n");
+  printf("Bitmark (MARKS) DNS Seeder  %s\n",dnsseeder_version);
   printf("Supporting whitelisted filters: ");
   for (std::set<uint64_t>::const_iterator it = opts.filter_whitelist.begin(); it != opts.filter_whitelist.end(); it++) {
       if (it != opts.filter_whitelist.begin()) {
