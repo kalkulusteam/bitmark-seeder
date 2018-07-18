@@ -16,7 +16,7 @@ using namespace std;
 
 // [Major].[Minor].[Patch].[Build].[letter]
 // [0].[1].[1].[8].[a]
-const char* dnsseeder_version = "0.1.1.8.b\0x0";
+const char* dnsseeder_version = "0.1.2.0.a\0x0";
 
 bool fTestNet = false;
 
