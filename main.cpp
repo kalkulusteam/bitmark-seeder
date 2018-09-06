@@ -16,7 +16,8 @@ using namespace std;
 
 // [Major].[Minor].[Patch].[Build].[letter]
 // [0].[1].[1].[8].[a]
-const char* dnsseeder_version = "0.1.2.0.a\0x0";
+// September 6, 2018: v0.1.3.0.a  for Bitmark v0.9.8.3, Fork #2
+const char* dnsseeder_version = "0.1.3.0.a\0x0"0;
 
 bool fTestNet = false;
 
@@ -346,6 +347,7 @@ extern "C" void* ThreadDumper(void*) {
     {
       vector<CAddrReport> v = db.GetAll();
       sort(v.begin(), v.end(), StatCompare);
+      // TODO: Name customization for simultaneous support of different coins.
       FILE *f = fopen("dnsseed.dat.new","w+");
       if (f) {
         {
@@ -367,6 +369,7 @@ extern "C" void* ThreadDumper(void*) {
         stat[4] += rep.uptime[4];
       }
       fclose(d);
+      // TODO: Name customization
       FILE *ff = fopen("dnsstats.log", "a");
       fprintf(ff, "%llu %g %g %g %g %g\n", (unsigned long long)(time(NULL)), stat[0], stat[1], stat[2], stat[3], stat[4]);
       fclose(ff);
@@ -423,11 +426,13 @@ extern "C" void* ThreadStats(void*) {
 
 */
 
-//  I now believe these should be regular P2P coin nodes which serve as "fixed seed nodes", 
+//  These should be regular P2P coin nodes which serve as "fixed seed nodes", 
+// Jules out of service TFN
 static const string mainnet_seeds[] =  {"seed.bitmark.co",
-					"seed.bitmark.mx",
+					"eu.bitmark.io",
 					"ge.bitmark.io", 
 					"tx.bitmark.io",
+					"us.bitmark.io",
 					"uk.bitmark.one", 
 					""};
 
@@ -448,7 +453,7 @@ static const string testnet_seeds[] = {"tz.bitmark.guru",
 static const string *seeds = mainnet_seeds;
 
 extern "C" void* ThreadSeeder(void*) {
-  // Bitmark - there are not TOR / Onion hidden service nodes at the moment; Nov 26'17
+  // Bitmark - there are no TOR / Onion hidden service nodes at the moment; Nov 26'17
   //if (!fTestNet){
   //  db.Add(CService("kjy2eqzk4zwi5zd3.onion", 9265), true);
   //}
@@ -527,6 +532,7 @@ int main(int argc, char **argv) {
     fprintf(stderr, "No e-mail address set. Please use -m.\n");
     exit(1);
   }
+  // TODO: Output file name customizations ...
   FILE *f = fopen("dnsseed.dat","r");
   if (f) {
     printf("Loading dnsseed.dat...");

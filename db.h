@@ -12,18 +12,22 @@
 
 #define MIN_RETRY 1000
 
-// Protocol Version 
-#define REQUIRE_VERSION 70002
-/*   	"version": 150000,		//Bitcoin
+// REQUIRE Protocol Version 
+#define REQUIRE_VERSION 70004
+/*   	"version": 150000,		// Bitcoin
   	"protocolversion": 70015,
   	"walletversion": 60000,
 
-    "version" : 90500,			//Bitmark
+    "version" : 90500,			// Bitmark 
     "protocolversion" : 70002,
-    "walletversion" : 60000,`
+    "walletversion" : 60000,
 
-    "version" : 90700,
+    "version" : 90700,                  // Bitmark - Fork #1 
     "protocolversion" : 70002,
+    "walletversion" : 60000,
+    
+    "version" : 90803,			// Bitmark - Fork #2
+    "protocolversion" : 70004,
     "walletversion" : 60000,
 
 	version:
@@ -37,7 +41,7 @@
 
 */
 
-// Bitcoin: If testnet, require 10,000 blocks : 11381 on testnet4 as of Nov26'17, otherwise 360,000
+// Bitcoin: If testnet require 10,000 blocks : 11381 on testnet4 as of Nov26'17, otherwise 360,000
 
 // Bitmark: If testnet, require 0 blocks  otherwise 465,639 (as of 1530104867: Wed Jun 27 13:07:47 UTC 2018)
 // Bitmark block 465639 hash: 3a7faa44a2898f3d9be0de967904640e23026fd9fa0cee4ae89c20c7030bfdd5
@@ -127,28 +131,30 @@ public:
     return ret;
   }
  
-  // Discriminator Function 
+  // Node Discriminator Function 
   bool IsGood() const {
     if (ip.GetPort() != GetDefaultPort()) return false;
     if (!(services & NODE_NETWORK)) return false;
     if (!ip.IsRoutable()) return false;
     if (clientVersion && clientVersion < REQUIRE_VERSION) return false;
     if (blocks && blocks < GetRequireHeight()) return false;
-// Hack: only return 0.9.7.0 or 0.9.7.1 nodes; no 0.9.5 nor 0.9.4 nor 0.9.2
+
+    /*
+	https://stackoverflow.com/questions/2340281/check-if-a-string-contains-a-string-in-c
+	if (s1.find(s2) != std::string::npos) {
+	    std::cout << "found!" << '\n';
+	}
+	Note: "found!" will be printed if s2 is a substring of s1, both s1 and s2 are of type std::string.
+    */
+    // Hack: only return 0.9.8.3 nodes; no 0.9.7.x, nor 0.9.5 nor 0.9.4 nor 0.9.2
+    if (clientSubVersion.find(7) != std::string::npos ) return false;
     if (clientSubVersion.find(5) != std::string::npos ) {
 		// Audit Trail of decisions, logging facility ....
-	        // printf("Rejecting old subversion.\n");
+	        // printf("Rejecting old subversion: 9.5.\n");
 		return false;
 	};
     if (clientSubVersion.find(4) != std::string::npos ) return false;
     if (clientSubVersion.find(2) != std::string::npos ) return false;
-/*
-https://stackoverflow.com/questions/2340281/check-if-a-string-contains-a-string-in-c
-if (s1.find(s2) != std::string::npos) {
-    std::cout << "found!" << '\n';
-}
-Note: "found!" will be printed if s2 is a substring of s1, both s1 and s2 are of type std::string.
-*/
 
     if (total <= 3 && success * 2 >= total) return true;
 
@@ -160,12 +166,13 @@ Note: "found!" will be printed if s2 is a substring of s1, both s1 and s2 are of
     
     return false;
   }
+
   int GetBanTime() const {
     if (IsGood()) return 0;
-    //  Bitmark clientVersion ("Version") 90700 
+    //  Bitmark clientVersion ("Version") 90803  (previous cutoff: 90700 ) 
     //    if (clientVersion && clientVersion < 31900) { return 604800; }   // Bitcoin
     // 1 week = 604800 seconds
-    if (clientVersion && clientVersion < 90700) { return 604800; }
+    if (clientVersion && clientVersion < 90803) { return 604800; }
     if (stat1M.reliability - stat1M.weight + 1.0 < 0.15 && stat1M.count > 32) { return 30*86400; }
     if (stat1W.reliability - stat1W.weight + 1.0 < 0.10 && stat1W.count > 16) { return 7*86400; }
     if (stat1D.reliability - stat1D.weight + 1.0 < 0.05 && stat1D.count > 8) { return 1*86400; }
