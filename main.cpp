@@ -17,7 +17,7 @@ using namespace std;
 // [Major].[Minor].[Patch].[Build].[letter]
 // [0].[1].[1].[8].[a]
 // September 6, 2018: v0.1.3.0.a  for Bitmark v0.9.8.3, Fork #2
-const char* dnsseeder_version = "0.1.3.0.a\0x0"0;
+const char* dnsseeder_version = "0.1.3.0.a\0x0";
 
 bool fTestNet = false;
 
