@@ -1,7 +1,7 @@
-bitmark-seeder
+kalkulus-seeder
 ==============
 
-Bitmark-seeder is a crawler for the Bitmark network, which exposes a list
+Kalkulus-seeder is a crawler for the Kalkulus network, which exposes a list
 of reliable nodes via a built-in DNS server.
 
 Features:

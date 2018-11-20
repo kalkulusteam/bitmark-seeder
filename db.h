@@ -12,39 +12,39 @@
 
 #define MIN_RETRY 1000
 
-// REQUIRE Protocol Version 
-#define REQUIRE_VERSION 70004
+// REQUIRE Protocol Version
+#define REQUIRE_VERSION 80012
 /*   	"version": 150000,		// Bitcoin
   	"protocolversion": 70015,
   	"walletversion": 60000,
 
-    "version" : 90500,			// Bitmark 
+    "version" : 90500,			// Kalkulus
     "protocolversion" : 70002,
     "walletversion" : 60000,
 
-    "version" : 90700,                  // Bitmark - Fork #1 
+    "version" : 90700,                  // Kalkulus - Fork #1
     "protocolversion" : 70002,
     "walletversion" : 60000,
-    
-    "version" : 90803,			// Bitmark - Fork #2
+
+    "version" : 90803,			// Kalkulus - Fork #2
     "protocolversion" : 70004,
     "walletversion" : 60000,
 
 	version:
-		The version number of this bitmark-qt or bitmarkd program itself. Both of are equivalent. -qt is simply the graphical user interface version
+		The version number of this kalkulus-qt or kalkulusd program itself. Both of are equivalent. -qt is simply the graphical user interface version
 
-	protocolversion: 
-		The version of the bitmark network protocol supported by this client.
+	protocolversion:
+		The version of the kalkulus network protocol supported by this client.
 
-	walletversion: 
-		The version of the wallet.dat file. Wallet.dat contains bitmark addresses and public & private key pairs for these addresses. There is additional data on the wallet. Care must be taken to not restore from an old wallet backup. New addresses generated in the wallet since the old backup was made will not exist in the old backup! ( Source: https://en.bitcoin.it/wiki/Wallet )
+	walletversion:
+		The version of the wallet.dat file. Wallet.dat contains kalkulus addresses and public & private key pairs for these addresses. There is additional data on the wallet. Care must be taken to not restore from an old wallet backup. New addresses generated in the wallet since the old backup was made will not exist in the old backup! ( Source: https://en.bitcoin.it/wiki/Wallet )
 
 */
 
 // Bitcoin: If testnet require 10,000 blocks : 11381 on testnet4 as of Nov26'17, otherwise 360,000
 
-// Bitmark: If testnet, require 0 blocks  otherwise 465,639 (as of 1530104867: Wed Jun 27 13:07:47 UTC 2018)
-// Bitmark block 465639 hash: 3a7faa44a2898f3d9be0de967904640e23026fd9fa0cee4ae89c20c7030bfdd5
+// Kalkulus: If testnet, require 0 blocks  otherwise 465,639 (as of 1530104867: Wed Jun 27 13:07:47 UTC 2018)
+// Kalkulus block 465639 hash: 3a7faa44a2898f3d9be0de967904640e23026fd9fa0cee4ae89c20c7030bfdd5
 static inline int GetRequireHeight(const bool testnet = fTestNet)
 {
     return testnet ? 0 : 465639;
@@ -70,7 +70,7 @@ public:
     count = count * f + 1;
     weight = weight * f + (1.0-f);
   }
-  
+
   IMPLEMENT_SERIALIZE (
     READWRITE(weight);
     READWRITE(count);
@@ -113,7 +113,7 @@ private:
   std::string clientSubVersion;
 public:
   CAddrInfo() : services(0), lastTry(0), ourLastTry(0), ourLastSuccess(0), ignoreTill(0), clientVersion(0), blocks(0), total(0), success(0) {}
-  
+
   CAddrReport GetReport() const {
     CAddrReport ret;
     ret.ip = ip;
@@ -130,8 +130,8 @@ public:
     ret.services = services;
     return ret;
   }
- 
-  // Node Discriminator Function 
+
+  // Node Discriminator Function
   bool IsGood() const {
     if (ip.GetPort() != GetDefaultPort()) return false;
     if (!(services & NODE_NETWORK)) return false;
@@ -163,13 +163,13 @@ public:
     if (stat1D.reliability > 0.55 && stat1D.count > 8) return true;
     if (stat1W.reliability > 0.45 && stat1W.count > 16) return true;
     if (stat1M.reliability > 0.35 && stat1M.count > 32) return true;
-    
+
     return false;
   }
 
   int GetBanTime() const {
     if (IsGood()) return 0;
-    //  Bitmark clientVersion ("Version") 90803  (previous cutoff: 90700 ) 
+    //  Kalkulus clientVersion ("Version") 90803  (previous cutoff: 90700 )
     //    if (clientVersion && clientVersion < 31900) { return 604800; }   // Bitcoin
     // 1 week = 604800 seconds
     if (clientVersion && clientVersion < 90803) { return 604800; }
@@ -186,11 +186,11 @@ public:
     if (stat8H.reliability - stat8H.weight + 1.0 < 0.08 && stat8H.count > 2)  { return 2*3600; }
     return 0;
   }
-  
+
   void Update(bool good);
-  
+
   friend class CAddrDb;
-  
+
   IMPLEMENT_SERIALIZE (
     unsigned char version = 4;
     READWRITE(version);
@@ -250,7 +250,7 @@ struct CServiceResult {
 //                       /       |                     \
 //               tracked nodes   (b) unknown nodes   (e) active nodes
 //              /           \
-//     (d) good nodes   (c) non-good nodes 
+//     (d) good nodes   (c) non-good nodes
 
 class CAddrDb {
 private:
@@ -262,7 +262,7 @@ private:
   std::set<int> unkId; // set of nodes not yet tried (b)
   std::set<int> goodId; // set of good nodes  (d, good e)
   int nDirty;
-  
+
 protected:
   // internal routines that assume proper locks are acquired
   void Add_(const CAddress &addr, bool force);   // add an address
@@ -293,7 +293,7 @@ public:
            (*it).second.ignoreTill = 0;
       }
   }
-  
+
   std::vector<CAddrReport> GetAll() {
     std::vector<CAddrReport> ret;
     SHARED_CRITICAL_BLOCK(cs) {
@@ -306,7 +306,7 @@ public:
     }
     return ret;
   }
-  
+
   // serialization code
   // format:
   //   nVersion (0 for now)

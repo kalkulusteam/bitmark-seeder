@@ -16,7 +16,7 @@ using namespace std;
 
 // [Major].[Minor].[Patch].[Build].[letter]
 // [0].[1].[1].[8].[a]
-// September 6, 2018: v0.1.3.0.a  for Bitmark v0.9.8.3, Fork #2
+// September 6, 2018: v0.1.3.0.a  for Kalkulus v0.9.8.3, Fork #2
 const char* dnsseeder_version = "0.1.3.0.a\0x0";
 
 bool fTestNet = false;
@@ -40,7 +40,7 @@ public:
   CDnsSeedOpts() : nThreads(96), nDnsThreads(4), nPort(53), mbox(NULL), ns(NULL), host(NULL), tor(NULL), fUseTestNet(false), fWipeBan(false), fWipeIgnore(false), ipv4_proxy(NULL), ipv6_proxy(NULL) {}
 
   void ParseCommandLine(int argc, char **argv) {
-    static const char *help = "Bitmark-seeder\n"
+    static const char *help = "Kalkulus-seeder\n"
                               "Usage: %s -h <host> -n <ns> [-m <mbox>] [-t <threads>] [-p <port>]\n"
                               "\n"
                               "Options:\n"
@@ -87,17 +87,17 @@ public:
           host = optarg;
           break;
         }
-        
+
         case 'm': {
           mbox = optarg;
           break;
         }
-        
+
         case 'n': {
           ns = optarg;
           break;
         }
-        
+
         case 't': {
           int n = strtol(optarg, NULL, 10);
           if (n > 0 && n < 1000) nThreads = n;
@@ -411,29 +411,25 @@ extern "C" void* ThreadStats(void*) {
 // Bitcoin Examples
 //static const string mainnet_seeds[] = {"dnsseed.bluematt.me", "bitseed.xf2.org", "dnsseed.bitcoin.dashjr.org", "seed.bitcoin.sipa.be", ""};
 
-// Bitmark (MARKS) (BTM)  
+// Kalkulus (MARKS) (BTM)
 //    These names represent sub-domain zones, which must be name-served by delegated name servers.
-// static const string mainnet_seeds[] = {"fertility.bitmark.guru", "fertilidad.bitmark.mx", "xara.zmark.org", "biji.bitmark.one", ""};
-/*static const string mainnet_seeds[] =  {"da.bitmark.guru",
-					"btmk.bitmark.guru",
-					"biji.bitmark.one", 
-					"shido.bitmark.one", 
-					"da.bitmark.mx", 
-					"xara.zmark.org", 
+// static const string mainnet_seeds[] = {"fertility.Kalkulus.guru", "fertilidad.Kalkulus.mx", "xara.zmark.org", "biji.Kalkulus.one", ""};
+/*static const string mainnet_seeds[] =  {"da.Kalkulus.guru",
+					"btmk.Kalkulus.guru",
+					"biji.Kalkulus.one",
+					"shido.Kalkulus.one",
+					"da.Kalkulus.mx",
+					"xara.zmark.org",
 					"seeder.dbkeys.net",
-					"fertilidad.bitmark.mx", 
+					"fertilidad.Kalkulus.mx",
 					""};
 
 */
 
-//  These should be regular P2P coin nodes which serve as "fixed seed nodes", 
+//  These should be regular P2P coin nodes which serve as "fixed seed nodes",
 // Jules out of service TFN
-static const string mainnet_seeds[] =  {"seed.bitmark.co",
-					"eu.bitmark.io",
-					"ge.bitmark.io", 
-					"tx.bitmark.io",
-					"us.bitmark.io",
-					"uk.bitmark.one", 
+static const string mainnet_seeds[] =  {"seed.kalkul.us",
+					"eu.kalkulus.io",
 					""};
 
 
@@ -444,22 +440,20 @@ static const string mainnet_seeds[] =  {"seed.bitmark.co",
 //                                       "testnet-seed.bitcoin.schildbach.de",
 //                                       ""};
 
-// Bitmark (MARKS) (BTM)  
-static const string testnet_seeds[] = {"tz.bitmark.guru",
-                                       "tz.bitmark.one",
-                                       "tz.bitmark.mx",
+// Kalkulus (MARKS) (BTM)
+static const string testnet_seeds[] = {"testseed.kalkul.us",
                                        ""};
 
 static const string *seeds = mainnet_seeds;
 
 extern "C" void* ThreadSeeder(void*) {
-  // Bitmark - there are no TOR / Onion hidden service nodes at the moment; Nov 26'17
+  // Kalkulus - there are no TOR / Onion hidden service nodes at the moment; Nov 26'17
   //if (!fTestNet){
   //  db.Add(CService("kjy2eqzk4zwi5zd3.onion", 9265), true);
   //}
 
-//static const string mainnet_seeds[] = {"seed.bitmark.co", "semo.bitmark.co", "biji.bitmark.io", "seed.bitmark.mx", "xinachtli.bitmark.mx", "irugbin.zmark.org",  ""};
-//static const string testnet_seeds[] = {"ts0.bitmark.co", "ts1.bitmark.io", "ts2.bitmark.mx", ""};
+//static const string mainnet_seeds[] = {"seed.Kalkulus.co", "semo.Kalkulus.co", "biji.Kalkulus.io", "seed.Kalkulus.mx", "xinachtli.Kalkulus.mx", "irugbin.zmark.org",  ""};
+//static const string testnet_seeds[] = {"ts0.Kalkulus.co", "ts1.Kalkulus.io", "ts2.Kalkulus.mx", ""};
 //static const string *seeds = mainnet_seeds;
 
   do {
@@ -480,7 +474,7 @@ int main(int argc, char **argv) {
   setbuf(stdout, NULL);
   CDnsSeedOpts opts;
   opts.ParseCommandLine(argc, argv);
-  printf("Bitmark (MARKS) DNS Seeder  %s\n",dnsseeder_version);
+  printf("Kalkulus (MARKS) DNS Seeder  %s\n",dnsseeder_version);
   printf("Supporting whitelisted filters: ");
   for (std::set<uint64_t>::const_iterator it = opts.filter_whitelist.begin(); it != opts.filter_whitelist.end(); it++) {
       if (it != opts.filter_whitelist.begin()) {
