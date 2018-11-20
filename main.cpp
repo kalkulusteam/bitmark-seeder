@@ -16,8 +16,8 @@ using namespace std;
 
 // [Major].[Minor].[Patch].[Build].[letter]
 // [0].[1].[1].[8].[a]
-// September 6, 2018: v0.1.3.0.a  for Kalkulus v0.9.8.3, Fork #2
-const char* dnsseeder_version = "0.1.3.0.a\0x0";
+// November 11, 2018: v0.1.1.0.a  for Kalkulus v2.7.0.0, Fork #2
+const char* dnsseeder_version = "0.1.1.0.a\0x0";
 
 bool fTestNet = false;
 
@@ -411,7 +411,7 @@ extern "C" void* ThreadStats(void*) {
 // Bitcoin Examples
 //static const string mainnet_seeds[] = {"dnsseed.bluematt.me", "bitseed.xf2.org", "dnsseed.bitcoin.dashjr.org", "seed.bitcoin.sipa.be", ""};
 
-// Kalkulus (MARKS) (BTM)
+// Kalkulus (KLKS) (BTM)
 //    These names represent sub-domain zones, which must be name-served by delegated name servers.
 // static const string mainnet_seeds[] = {"fertility.Kalkulus.guru", "fertilidad.Kalkulus.mx", "xara.zmark.org", "biji.Kalkulus.one", ""};
 /*static const string mainnet_seeds[] =  {"da.Kalkulus.guru",
@@ -440,7 +440,7 @@ static const string mainnet_seeds[] =  {"seed.kalkul.us",
 //                                       "testnet-seed.bitcoin.schildbach.de",
 //                                       ""};
 
-// Kalkulus (MARKS) (BTM)
+// Kalkulus (KLKS) (BTM)
 static const string testnet_seeds[] = {"testseed.kalkul.us",
                                        ""};
 
@@ -449,7 +449,7 @@ static const string *seeds = mainnet_seeds;
 extern "C" void* ThreadSeeder(void*) {
   // Kalkulus - there are no TOR / Onion hidden service nodes at the moment; Nov 26'17
   //if (!fTestNet){
-  //  db.Add(CService("kjy2eqzk4zwi5zd3.onion", 9265), true);
+  //  db.Add(CService("kjy2eqzk4zwi5zd3.onion", 51121), true);
   //}
 
 //static const string mainnet_seeds[] = {"seed.Kalkulus.co", "semo.Kalkulus.co", "biji.Kalkulus.io", "seed.Kalkulus.mx", "xinachtli.Kalkulus.mx", "irugbin.zmark.org",  ""};
@@ -474,7 +474,7 @@ int main(int argc, char **argv) {
   setbuf(stdout, NULL);
   CDnsSeedOpts opts;
   opts.ParseCommandLine(argc, argv);
-  printf("Kalkulus (MARKS) DNS Seeder  %s\n",dnsseeder_version);
+  printf("Kalkulus (KLKS) DNS Seeder  %s\n",dnsseeder_version);
   printf("Supporting whitelisted filters: ");
   for (std::set<uint64_t>::const_iterator it = opts.filter_whitelist.begin(); it != opts.filter_whitelist.end(); it++) {
       if (it != opts.filter_whitelist.begin()) {
